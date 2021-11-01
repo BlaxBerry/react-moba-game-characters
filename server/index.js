@@ -1,8 +1,7 @@
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
-
-
+const errorHandler = require('./middleware/errorHandler')
 const app = express()
 
 // log
@@ -29,12 +28,8 @@ app.use((req, res, next) => {
     })
 })
 
-// error middleware
-app.use((err, req, res, next) => {
-    res.status(500).send({
-        error: err.message
-    })
-})
+// error handler middleware
+app.use(errorHandler())
 
 // port
 const port = process.env.PORT || 8000

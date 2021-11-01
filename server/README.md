@@ -1,4 +1,4 @@
-# API Server of React-FullStacks-Words-WebApp
+# API Server Side
 
 ## Tech Tasks
 
@@ -10,6 +10,8 @@
   - express.urlencoded()
   - morgan()
   - cors()
+  - md 5
+  - express-validator
 
 ## Directory
 
@@ -17,16 +19,21 @@
 |- config
   |- config.default.js
 |- middleware
+  |- errorhandler.js // error handler
+  |- validator // data validator
+    |- createUser.js
 |- router
   |- index.js // mian router
   |- client
 		|- index.js // client side
 	|- admin
 		|- index.js // admin management side
-|- controllers 
+|- controllers
 	|- client // client routes' handle functions
 	|- admin // admin routes' handle functions
 |- utils
+  |- handleDatabase.js
+  |- md5.js // md5 password hashing algorithm
 |- index.js // mian index.js
 ```
 
@@ -36,11 +43,12 @@
 
 #### user
 
-| description           | method | pathname        |
-| --------------------- | ------ | --------------- |
-| Login / Registration  | POST   | ` /users/login` |
-| get Current User Info | GET    | `/user/`        |
-| Update User's Info    | PUT    | `/user`         |
+| description                  | method | pathname         |
+| ---------------------------- | ------ | ---------------- |
+| registration                 | POST   | `/user/register` |
+| login                        | POST   | ` /user/login`   |
+| get current user information | GET    | `/user`          |
+| update user's information    | PUT    | `/user`          |
 
 ### Admin Side
 
@@ -56,36 +64,53 @@ users
 
 ### Client Side
 
-#### User Login / Registration
+#### User Registration
 
-POST`/users/login`
+POST `/user/register`
 
 request body:
 
 ```json
 {
-  "user": {
-    "email": "jack@jack.jack",
-    "password": "jackjack123"
-  }
+  "username": "jack",
+  "email": "jack@jack.jack",
+  "password": "jack123"
+}
+```
+
+description:
+
+- express-validator data validation
+- double md5 password hashing algorithm
+
+#### User Login
+
+POST `/user/login`
+
+request body:
+
+```json
+{
+  "username": "jack",
+  "email": "jack@jack.jack",
+  "password": "jack123"
 }
 ```
 
 #### Get Current User's Info
 
-GET`/user/`
+GET`/user`
 
 Authentication required, returns the currnet user's informatoin:
 
 ```json
 {
-  "user": {
-    "name": "jack",
-    "email": "jack@jack.jack",
-    "password": "jackjack123",
-    "avatar": "https://xxxxx.xxx",
-    "motto": "i love programming"
-  }
+  "id": "001",
+  "email": "jack@qq.com",
+  "usernamne": "jack",
+  "password": "xxxxxxx",
+  "avatar": "",
+  "motto": ""
 }
 ```
 
