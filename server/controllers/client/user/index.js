@@ -1,22 +1,21 @@
 const express = require('express')
 const router = express.Router()
 // Validator middleware
-const registerValidator= require('../../../middleware/dataValidator/userRegister')
+const loginValidator = require('../../../middleware/dataValidator/userRegister')
+// JWT token Authorization
+const tokenAuthorization = require('../../../middleware/tokenAuthorizate')
 
-// user login 
-//   /user/register
-router.post('/register', registerValidator, require('./user-Register'))
+// user register   (/user/register)
+router.post('/register', loginValidator, require('./user-Register'))
 
-//   /user/login
-router.post('/login', registerValidator, require('./user-Login'))
+// user login   (/user/login)
+router.post('/login', loginValidator, require('./user-Login'))
 
-// current user info
-//    /user/
-router.get('/', require('./user-GetCurrentUser'))
+// current user info    (/user/)
+router.get('/', tokenAuthorization, require('./user-GetCurrentUser'))
 
-// update user info
-//   /user/
-router.post('/', require('./user-UpdateInfo'))
+// update user   (/user/)
+router.post('/', tokenAuthorization, require('./user-UpdateInfo'))
 
 
 

@@ -27,8 +27,7 @@ module.exports = async (req, res, next) => {
         // respond to client
         delete userIsExist.password
         res.status(201).send({
-            staus: 200,
-            msg: `wellcome back ${userIsExist.username}.`,
+            msg: 'login succeed',
             user: userIsExist,
         })
     } catch (error) {
