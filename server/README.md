@@ -52,11 +52,12 @@
 | get current user information | GET    | `/user`          |
 | update user's information    | PUT    | `/user`          |
 
-| description                   | method | pathname                    |
-| ----------------------------- | ------ | --------------------------- |
-| Get Current User's Words List | GET    | `/user/en?page=1&offset=30` |
-| Add New Word Card             | POST   | `/user/en/add`              |
-| Edit Word Card                | Put    | `/user/en/edit/wordid`      |
+| description                   | method | pathname            |
+| ----------------------------- | ------ | ------------------- |
+| Get Current User's Words List | GET    | `/words/list/:lang` |
+| Create New list               | POST   | `/words/list/add`   |
+| Add New Word Card             | POST   | `/words/add/`       |
+| Edit Word Card                | Put    | `/words/edit/:id`   |
 
 #### User Registration
 
@@ -77,6 +78,7 @@ description:
 - express-validator data validation
 - double md5 password hashing algorithm
 - uuid for random user id
+- create user's unique db dir
 
 #### User Login
 
@@ -145,7 +147,7 @@ returns the currnet user's informatoin updated:
 
 #### Get Current User's Words List
 
-GET `/words/type?page=number&offset=number`
+GET `/words/list/en`
 
 > Types:
 >
@@ -163,7 +165,48 @@ returns tthe words List:
     {
       "name": "Hello",
       "meaning": ["你好", "嗨", "喂"],
-      "example": [{}]
+      "phrase": [
+        {
+          "sentence": "Hello,deer~",
+          "meaning": "你好亲爱的～"
+        }
+      ]
+    }
+  ]
+}
+```
+
+#### Create New Word List
+
+POST `/words/list/add`
+
+**Authentication required**
+
+request body:
+
+```json
+{
+  "lang": "en"
+}
+```
+
+#### Add New Word Card
+
+POST `/words/add`
+
+**Authentication required**
+
+request body:
+
+```json
+{
+  "lang": "en",
+  "name": "Hello",
+  "meaning": ["你好", "嗨", "喂"],
+  "phrase": [
+    {
+      "sentence": "Hello,deer~",
+      "meaning": "你好亲爱的～"
     }
   ]
 }

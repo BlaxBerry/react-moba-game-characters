@@ -1,6 +1,9 @@
 const { getUsers } = require('../../../utils/handleDatadbase')
 // md5 password hashing algorithm
 const md5 = require('../../../utils/md5')
+// JWT
+const JWT = require('../../../utils/jwt')
+const { JWTSecret } = require('../../../config/config.default')
 
 module.exports = async (req, res, next) => {
     try {
@@ -23,12 +26,16 @@ module.exports = async (req, res, next) => {
                 error: "password is wrong."
             })
         }
-
+        // create token
+        const token = await JWT.jwtSign(
+            { id: req.body.id },
+            JWTSecret,
+            { expiresIn: 60 * 60 * 24 * 7 } // token 7 天有效
+        )
         // respond to client
-        delete userIsExist.password
         res.status(201).send({
             msg: 'login succeed',
-            user: userIsExist,
+            token: token,
         })
     } catch (error) {
         next(error)

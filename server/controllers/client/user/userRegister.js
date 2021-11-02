@@ -1,11 +1,8 @@
-const { getUsers, savToUsers } = require('../../../utils/handleDatadbase')
+const { getUsers, savToUsers, createUserWordsDir } = require('../../../utils/handleDatadbase')
 // md5 password hashing algorithm
 const md5 = require('../../../utils/md5')
 // uuid
 const uudi = require('uuid')
-// JWT
-const JWT = require('../../../utils/jwt')
-const { JWTSecret } = require('../../../config/config.default')
 
 module.exports = async (req, res, next) => {
     try {
@@ -34,15 +31,13 @@ module.exports = async (req, res, next) => {
         // save data to db
         await savToUsers(data)
 
-        // create token
-        const token = await JWT.jwtSign(
-            { id: newUser.id },
-            JWTSecret
-        )
+
+        // create user's words directory in db
+        await createUserWordsDir(newUser.email)
+
+
         // respond to client
-        delete newUser.password
         res.status(201).send({
-            token: token,
             msg: "succeeded in creating a new user."
         })
     } catch (error) {
