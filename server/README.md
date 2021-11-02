@@ -50,14 +50,15 @@
 | registration                 | POST   | `/user/register` |
 | login                        | POST   | `/user/login`    |
 | get current user information | GET    | `/user`          |
-| update user's information    | PUT    | `/user`          |
+| update user's information    | POST   | `/user`          |
 
 | description                   | method | pathname            |
 | ----------------------------- | ------ | ------------------- |
 | Get Current User's Words List | GET    | `/words/list/:lang` |
 | Create New list               | POST   | `/words/list/add`   |
+| Get Current Words             | GET    | `/words/:lang/:id`  |
 | Add New Word Card             | POST   | `/words/add/`       |
-| Edit Word Card                | Put    | `/words/edit/:id`   |
+| Edit Word Card                | PUT    | `/words/edit/:id`   |
 
 #### User Registration
 
@@ -130,9 +131,9 @@ returns the currnet user's informatoin:
 
 PUT `/user`
 
-Authentication required
+**Authentication required**
 
-returns the currnet user's informatoin updated:
+request body:
 
 ```json
 {
@@ -149,12 +150,12 @@ returns the currnet user's informatoin updated:
 
 GET `/words/list/en`
 
+**Authentication required**
+
 > Types:
 >
 > - en：English
 > - jp：Japanese
-
-**Authentication required**
 
 returns tthe words List:
 
@@ -212,14 +213,20 @@ request body:
 }
 ```
 
-### Admin Side
+#### Get Current Word
 
-users
+GET `/words/:lang/:id`
+
+**Authentication required**
+
+---
+
+### Admin Side
 
 | description | method | pathname          |
 | ----------- | ------ | ----------------- |
 | users list  | GET    | `/api/users/list` |
-| remove user |        |                   |
+| remove user | POST   | `/api/remove`     |
 
 #### Users List
 

@@ -4,20 +4,16 @@ module.exports = async (req, res, next) => {
     try {
         const userEmail = req.currentUserInfo.email
         const lang = req.params.lang
+        const wordID = req.params.id
 
         // get the list from db
         const data = await getWordList(userEmail, lang)
-
-        const list = data.map(item => ({
-            id: item.id,
-            name: item.name,
-            meaning: item.meaning
-        }))
+        // get word from list
+        const word = data.find(item => item.id === wordID)
 
         // response
-        res.send({
-            msg: `got words list of ${lang}`,
-            list: list,
+        res.status(200).send({
+            word: word
         })
     } catch (error) {
         next(error)

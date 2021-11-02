@@ -3,6 +3,7 @@ const router = express.Router()
 // Validator middleware
 const registerValidator = require('../../middleware/dataValidator/userRegister')
 const loginValidator = require('../../middleware/dataValidator/userLogin')
+const updateValidator = require('../../middleware/dataValidator/userUpdate')
 // JWT token Authorization
 const tokenAuthorization = require('../../middleware/tokenAuthorizate')
 
@@ -16,7 +17,7 @@ router.post('/login', loginValidator, require('../../controllers/client/user/use
 router.get('/', tokenAuthorization, require('../../controllers/client/user/getCurrentUser'))
 
 // update user   (/user/)
-router.post('/', tokenAuthorization, require('../../controllers/client/user/userUpdate'))
+router.post('/', updateValidator, tokenAuthorization, require('../../controllers/client/user/userUpdate'))
 
 
 
