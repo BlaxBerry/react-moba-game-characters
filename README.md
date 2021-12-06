@@ -1,26 +1,12 @@
-# React-FullStacks-Words-WebApp
+# Client Side
 
-### Client
-
-- React
-- Functional Components + Hooks
-- Create-React-App
-- React-Router-Dom
-- Material UI
-- Sass
-- Axios
-
-### Admin
+## Tech Tasks
 
 - React
-- Class Components
+- TypeScript
 - Create-React-App
 - React-Router-Dom
 - AntDesign
-- Less
+- Sass
 - Axios
-
-### API Server
-
-- Node.js
-- Express.js
+- yarn
