@@ -2,7 +2,7 @@ import React from 'react';
 import { BackTop } from 'antd';
 import { UpOutlined } from '@ant-design/icons';
 
-export const BackToTop: React.FC = () => (
+export const BackToTop = () => (
     <BackTop>
         <div style={{
             height: 40,
@@ -17,5 +17,4 @@ export const BackToTop: React.FC = () => (
             <UpOutlined />
         </div>
     </BackTop>
-
 );
