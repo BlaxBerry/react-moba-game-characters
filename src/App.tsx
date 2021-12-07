@@ -4,6 +4,7 @@ import { Navigate } from 'react-router-dom'
 import Home from './pages/Home'
 import Heroes from './pages/Heroes';
 import Weapon from './pages/Weapon';
+import HeroDetails from './pages/HeroDetails';
 import { NavBar, TabBar } from './components/common/index'
 
 
@@ -16,7 +17,7 @@ const App: React.FC = (props) => (
       className="App-Content"
       style={{
         paddingBottom: "60px",
-        paddingTop: "50px"
+        paddingTop: "45px"
       }}
     >
       <Routes>
@@ -24,6 +25,7 @@ const App: React.FC = (props) => (
         <Route path="/search" element={Home()} />
         <Route path="/heroes" element={Heroes()} />
         <Route path="/Weapons" element={Weapon()} />
+        <Route path="/detail" element={HeroDetails()} />
         <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>
     </div>
