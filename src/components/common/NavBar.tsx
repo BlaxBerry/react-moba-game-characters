@@ -19,12 +19,13 @@ export const NavBar = (props: any) => {
     const goBack = () => navigation(-1)
 
     return (
-        <BaseNavBar onBack={goBack}
+        <BaseNavBar
+            back={null}
             style={{
                 position: "fixed",
                 top: 0,
                 width: "100%",
-                height:"50px",
+                height: "50px",
                 backgroundColor: "#fff"
             }}
         >

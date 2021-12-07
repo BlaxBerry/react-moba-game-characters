@@ -3,6 +3,7 @@ import React, { useState, useEffect, useMemo } from 'react'
 import { getHeroList as getData } from '../../api'
 import { SideBar, Toast } from 'antd-mobile'
 import Cards from '../../components/Cards/Cards'
+import { Loading } from '../../components/common/index'
 
 
 const DEFAULT_SILDE_TABS = [
@@ -39,6 +40,7 @@ const DEFAULT_SILDE_TABS = [
 const Heroes = () => {
     const [data, setData] = useState([])
     const [heroType, setHeroType] = useState('all')
+    const [loading, setLoading] = useState(true)
 
     const getHeroList = async () => {
         try {
@@ -46,6 +48,7 @@ const Heroes = () => {
             const all = res.data || []
             // console.log(all);
             setData(all)
+            setLoading(false)
         } catch (error) {
             Toast.show({
                 icon: 'fail',
@@ -111,16 +114,28 @@ const Heroes = () => {
             {/* right content */}
             <div style={{ paddingLeft: "65px" }}>
                 {
-                    DEFAULT_SILDE_TABS.map(item => (
-                        <div
-                            key={item.key}
-                            hidden={heroType !== item.key}
-                        >
-                            {item.title}
-                            {list.length}
-                            <Cards list={list} />
-                        </div>
-                    ))
+                    loading
+                        ? (<Loading />)
+                        : (
+                            <>
+                                {
+                                    DEFAULT_SILDE_TABS.map(item => (
+                                        <div
+                                            key={item.key}
+                                            hidden={heroType !== item.key}
+                                        >
+                                            {/* amount */}
+                                            <h4 style={{ textAlign: "right", margin: "0 5px 0" }}>
+                                                <strong>{item.title}</strong> 共计 <strong>{list.length}</strong>
+                                            </h4>
+
+                                            {/* cards list */}
+                                            <Cards list={list} />
+                                        </div>
+                                    ))
+                                }
+                            </>
+                        )
                 }
             </div>
         </div>
