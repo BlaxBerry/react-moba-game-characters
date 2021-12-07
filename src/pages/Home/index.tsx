@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { Input, message } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import { Toast } from 'antd-mobile'
+import { SearchBar } from '../../components/common/Bar/index'
 import { getRandomImg as getData } from '../../api'
 import logo from '../../assets/logo.png'
 
@@ -13,30 +13,26 @@ const Home = () => {
             const { data } = await getData()
             setRandomImg(data.url)
         } catch (error) {
-            message.error('Request Timeout.')
+            Toast.show({
+                icon: 'fail',
+                content: '网络连接失败，请稍后刷新',
+            })
             console.log('Home Random Image', error);
         }
     }
 
     useEffect(() => {
         getRandomImg()
-    
     }, [])
 
 
     return (
         <>
-            {/* search */}
-            <div>
-                <Input placeholder="Search the Character" size="large" prefix={<SearchOutlined />} />
-            </div>
+            {/* search bar*/}
+            <SearchBar />
 
-            {/* img */}
-            <img src={randomImg} alt="LOL"
-                style={{
-                    width: "100%"
-                }}
-            />
+            {/* random background img */}
+            <img src={randomImg} alt="随机图片" style={{ width: "100%" }} />
         </>
     )
 }

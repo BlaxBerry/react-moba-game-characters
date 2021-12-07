@@ -1,9 +1,9 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom'
-import { PageHeader as BaseHeader } from 'antd';
+import { NavBar as BaseNavBar, Space } from 'antd-mobile'
 
-export const PageHeader = () => {
+export const NavBar = () => {
     const [pageName, setPageName] = useState('')
     const navigation = useNavigate()
     const { pathname } = useLocation()
@@ -14,21 +14,14 @@ export const PageHeader = () => {
             ? pathStr.replace(pathStr[0], pathStr[0].toUpperCase())
             : 'Home'
         setPageName(currentPathName)
-
     }, [pathname])
 
-    const goBack = () => {
-        navigation(-1)
+    const goBack = () => navigation(-1)
 
-    }
+    console.log(pageName);
+
 
     return (
-
-        <BaseHeader
-            className="site-page-header"
-            onBack={goBack}
-            title={pageName}
-        />
-
+        <BaseNavBar onBack={goBack}>{pageName}</BaseNavBar>
     )
 }

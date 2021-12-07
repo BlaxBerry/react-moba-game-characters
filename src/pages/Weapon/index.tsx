@@ -2,16 +2,16 @@ import React from 'react'
 // import { useLocation, useNavigate, useParams } from 'react-router-dom'
 // import { Button } from 'antd';
 
-const About = () => {
+const Weapon = () => {
 
 
     return (
-        <div>
+        <>
             About
 
 
-        </div>
+        </>
     )
 }
 
-export default About
+export default Weapon

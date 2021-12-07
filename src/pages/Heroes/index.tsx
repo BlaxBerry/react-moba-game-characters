@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect } from 'react'
 // import { useState, useEffect } from 'react'
 import { getHeroList as getData } from '../../api'
 
 
 const Heroes = () => {
     const [data, setData] = useState([])
-    const [type, setType] = useState('mega')
+    // const [type, setType] = useState('mega')
     // 'mage','marksman','assassin','fighter','tank','support'
 
     const getHeroList = async () => {
@@ -20,9 +20,9 @@ const Heroes = () => {
     }, [])
 
     return (
-        <div>
+        <>
             Heros {data.length}
-        </div>
+        </>
     )
 }
 
