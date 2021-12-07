@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom'
 import Home from './pages/Home'
 import Heroes from './pages/Heroes';
 import Weapon from './pages/Weapon';
-import { NavBar, TabBar } from './components/common/Bar/index'
+import { NavBar, TabBar } from './components/common/index'
 
 
 const App: React.FC = (props) => (
@@ -12,7 +12,13 @@ const App: React.FC = (props) => (
     {/* header */}
     <NavBar />
 
-    <div className="App-Content" style={{ paddingBottom: "60px" }}>
+    <div
+      className="App-Content"
+      style={{
+        paddingBottom: "60px",
+        paddingTop: "50px"
+      }}
+    >
       <Routes>
         <Route path="/" element={Home()} />
         <Route path="/search" element={Home()} />

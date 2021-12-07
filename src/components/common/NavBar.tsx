@@ -1,9 +1,9 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom'
-import { NavBar as BaseNavBar, Space } from 'antd-mobile'
+import { NavBar as BaseNavBar } from 'antd-mobile'
 
-export const NavBar = () => {
+export const NavBar = (props: any) => {
     const [pageName, setPageName] = useState('')
     const navigation = useNavigate()
     const { pathname } = useLocation()
@@ -18,10 +18,17 @@ export const NavBar = () => {
 
     const goBack = () => navigation(-1)
 
-    console.log(pageName);
-
-
     return (
-        <BaseNavBar onBack={goBack}>{pageName}</BaseNavBar>
+        <BaseNavBar onBack={goBack}
+            style={{
+                position: "fixed",
+                top: 0,
+                width: "100%",
+                height:"50px",
+                backgroundColor: "#fff"
+            }}
+        >
+            {pageName}
+        </BaseNavBar>
     )
 }

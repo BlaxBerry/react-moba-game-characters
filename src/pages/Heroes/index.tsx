@@ -1,18 +1,81 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 // import { useState, useEffect } from 'react'
 import { getHeroList as getData } from '../../api'
+import { SideBar, Toast } from 'antd-mobile'
+import Cards from '../../components/Cards/Cards'
 
+
+const DEFAULT_SILDE_TABS = [
+    {
+        key: 'all',
+        title: '全部',
+        badge: "99+",
+    },
+    {
+        key: 'mage',
+        title: '法师',
+    },
+    {
+        key: 'marksman',
+        title: '射手',
+    },
+    {
+        key: 'assassin',
+        title: '刺客',
+    },
+    {
+        key: 'fighter',
+        title: '战士',
+    },
+    {
+        key: 'tank',
+        title: '坦克',
+    }, {
+        key: 'support',
+        title: '辅助',
+    },
+]
 
 const Heroes = () => {
     const [data, setData] = useState([])
-    // const [type, setType] = useState('mega')
-    // 'mage','marksman','assassin','fighter','tank','support'
+    const [heroType, setHeroType] = useState('all')
 
     const getHeroList = async () => {
-        const { data: res } = await getData()
-        const allHeroes = res.data || []
-        setData(allHeroes)
+        try {
+            const { data: res } = await getData()
+            const all = res.data || []
+            // console.log(all);
+            setData(all)
+        } catch (error) {
+            Toast.show({
+                icon: 'fail',
+                content: '网络连接失败，请稍后刷新',
+            })
+        }
     }
+
+    const list = useMemo(() => {
+        const dataSource = data?.filter((item: any) => {
+            const roles: [string] = item.roles
+            if (heroType !== "all") {
+                return roles.includes(heroType)
+            } else {
+                return item
+            }
+        })
+        return dataSource.map(item => {
+            const { heroId, alias, title, icon, roles, keywords } = item
+            return ({
+                id: heroId,
+                nameEN: alias,
+                nameCN: title,
+                pic: icon,
+                roles,
+                keywords,
+            })
+        })
+    }, [data, heroType])
+    // console.log(list)
 
 
     useEffect(() => {
@@ -20,9 +83,47 @@ const Heroes = () => {
     }, [])
 
     return (
-        <>
-            Heros {data.length}
-        </>
+        <div>
+            {/* left side bar */}
+            <SideBar
+                activeKey={heroType}
+                onChange={setHeroType}
+                style={{
+                    position: "fixed",
+                    left: "5px",
+                    height: "100%",
+                    width: '60px'
+                }}
+            >
+                {DEFAULT_SILDE_TABS.map(item => (
+                    <SideBar.Item
+                        key={item.key}
+                        title={item.title}
+                        badge={item.badge}
+                        style={{
+                            justifyContent: "center",
+                            padding: 0
+                        }}
+                    />
+                ))}
+            </SideBar>
+
+            {/* right content */}
+            <div style={{ paddingLeft: "65px" }}>
+                {
+                    DEFAULT_SILDE_TABS.map(item => (
+                        <div
+                            key={item.key}
+                            hidden={heroType !== item.key}
+                        >
+                            {item.title}
+                            {list.length}
+                            <Cards list={list} />
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
     )
 }
 

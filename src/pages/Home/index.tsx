@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { Toast } from 'antd-mobile'
-import { SearchBar } from '../../components/common/Bar/index'
+import { SearchBar } from '../../components/common/index'
 import { getRandomImg as getData } from '../../api'
 import logo from '../../assets/logo.png'
 
