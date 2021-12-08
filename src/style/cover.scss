@@ -1,0 +1,15 @@
+.adm-tab-bar-item {
+  color: #dbdbdb !important;
+  font-weight: 700 !important;
+}
+.adm-tab-bar-item-active {
+  color: $active-font-light !important;
+}
+
+.adm-side-bar-item {
+  color: $active-font-grey !important;
+}
+.adm-side-bar-item-active {
+  color: $active-font-dark !important;
+  font-weight: 700;
+}

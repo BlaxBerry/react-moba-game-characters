@@ -30,7 +30,7 @@ const DEFAULT_TABS = [
 ]
 
 export const TabBar = () => {
-    const [activeKey, setActiveKey] = useState('/search')
+    const [activeKey, setActiveKey] = useState('/heroes')
 
     const Navigation = useNavigate()
 
@@ -44,10 +44,11 @@ export const TabBar = () => {
             activeKey={activeKey}
             onChange={value => setRouteActive(value)}
             style={{
-                backgroundColor: "#fff",
                 position: "fixed",
                 bottom: 0,
-                width: "100%"
+                width: "100%",
+                backgroundColor: "teal",
+                color: "#fff"
             }}
         >
             {DEFAULT_TABS.map(item => (

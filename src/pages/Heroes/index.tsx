@@ -8,11 +8,6 @@ import { Loading } from '../../components/common/index'
 
 const DEFAULT_SILDE_TABS = [
     {
-        key: 'all',
-        title: '全部',
-        badge: "99+",
-    },
-    {
         key: 'mage',
         title: '法师',
     },
@@ -35,11 +30,16 @@ const DEFAULT_SILDE_TABS = [
         key: 'support',
         title: '辅助',
     },
+    {
+        key: 'all',
+        title: '全部',
+        badge: "99+",
+    },
 ]
 
 const Heroes = () => {
     const [data, setData] = useState([])
-    const [heroType, setHeroType] = useState('all')
+    const [heroType, setHeroType] = useState('mage')
     const [loading, setLoading] = useState(true)
 
     const getHeroList = async () => {
@@ -125,8 +125,10 @@ const Heroes = () => {
                                             hidden={heroType !== item.key}
                                         >
                                             {/* amount */}
-                                            <h4 style={{ textAlign: "right", margin: "0 5px 0" }}>
-                                                <strong>{item.title}</strong> 共计 <strong>{list.length}</strong>
+                                            <h4 className="front-color-grey" style={{ textAlign: "right", margin: "0 5px 0" }}>
+                                                <strong className="front-color-dark" >{item.title}</strong>
+                                                &nbsp;共计&nbsp;
+                                                <strong className="front-color-dark" >{list.length}</strong>
                                             </h4>
 
                                             {/* cards list */}

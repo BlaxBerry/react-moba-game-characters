@@ -1,15 +1,26 @@
 import React from 'react'
-// import { useLocation, useNavigate, useParams } from 'react-router-dom'
-// import { Button } from 'antd';
-
+// import { useState, useEffect, useMemo } from 'react'
+// import { getWeaponList } from "../../api/index"
 const Weapon = () => {
+
+    // const getDataSource = async () => {
+    //     const { data } = await getWeaponList()
+    //     console.log(data.data);
+    // }
 
 
     return (
         <>
-            About
-
-
+            <div style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)"
+            }}>
+                <h2>
+                    开发中。。。
+                </h2>
+            </div>
         </>
     )
 }

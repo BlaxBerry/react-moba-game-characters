@@ -1,10 +1,20 @@
 import React from 'react'
-import { Grid, Image } from 'antd-mobile'
+import { Grid, Image, Toast } from 'antd-mobile'
 import { useNavigate } from 'react-router'
 
 export default function Cards(props: any) {
 
     const navigation = useNavigate()
+
+    const goDetail = (id: string) => {
+        navigation('/detail', {
+            state: { id }
+        })
+        Toast.show({
+            icon: 'loading',
+            content: '加载中…',
+        })
+    }
 
     return (
         <Grid columns={4} style={{ padding: "2px" }}>
@@ -12,9 +22,7 @@ export default function Cards(props: any) {
                 props.list.map((item: any) => (
                     <Grid.Item
                         key={item.id}
-                        onClick={() => navigation('/detail', {
-                            state: { id: item.id }
-                        })}
+                        onClick={() => goDetail(item.id)}
                     >
                         <Image src={item.pic} fit='fill'
                             style={{

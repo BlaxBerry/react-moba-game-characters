@@ -1,22 +1,22 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { NavBar as BaseNavBar } from 'antd-mobile'
 
 export const NavBar = (props: any) => {
     const [pageName, setPageName] = useState('')
-    const navigation = useNavigate()
     const { pathname } = useLocation()
 
     useEffect(() => {
-        const pathStr = pathname?.slice(1)
-        const currentPathName = pathStr
-            ? pathStr.replace(pathStr[0], pathStr[0].toUpperCase())
-            : 'Home'
-        setPageName(currentPathName)
+        switch (pathname) {
+            case "/heroes": return setPageName("英雄列表")
+            case "/search": return setPageName("查询角色")
+            case "/weapons": return setPageName("装备列表")
+            case "/detail": return setPageName("角色详情")
+            default: return setPageName("英雄联盟信息")
+        }
     }, [pathname])
 
-    const goBack = () => navigation(-1)
 
     return (
         <BaseNavBar
@@ -26,7 +26,8 @@ export const NavBar = (props: any) => {
                 top: 0,
                 width: "100%",
                 height: "50px",
-                backgroundColor: "#fff"
+                backgroundColor: "teal",
+                color: "#fff"
             }}
         >
             {pageName}

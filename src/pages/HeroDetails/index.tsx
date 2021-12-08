@@ -53,10 +53,11 @@ const HeroDetails = () => {
     const hero = useMemo(() => {
         const hero: any = dataSource.hero
         if (dataSource.hero) {
-            const { alias, title, shortBio, roles, enemytips, allytips } = hero
+            const { name, alias, title, shortBio, roles, enemytips, allytips } = hero
             return ({
                 nameEN: alias,
                 nameCN: title,
+                nickName: name,
                 description: shortBio,
                 type: roles,
                 extraInfo1: enemytips,
@@ -123,7 +124,7 @@ const HeroDetails = () => {
 
                             <Divider style={{ textAlign: "center" }}>
                                 <h2 style={{ margin: 0 }}>{hero?.nameCN}</h2>
-                                <h4 style={{ margin: 0 }}>{hero?.nameEN}</h4>
+                                <h4 style={{ margin: 0 }}>{hero?.nickName}</h4>
                             </Divider>
 
 
@@ -166,7 +167,7 @@ const HeroDetails = () => {
                                                 <p style={{ fontSize: "13px" }}>{item.description}</p>
                                             }
                                         >
-                                            <b>{item.name}</b>
+                                            <b className="front-color-dark">{item.name}</b>
                                         </List.Item>
                                     ))}
                                 </List>
@@ -178,14 +179,14 @@ const HeroDetails = () => {
                                     <h3 style={{ margin: 0 }}>注意技巧</h3>
                                 </Divider>
 
-                                <Divider contentPosition='left'>
-                                    我方 {hero?.nameCN}
+                                <Divider contentPosition='left' className="front-color-dark">
+                                    <b>我方 {hero?.nameCN}</b>
                                 </Divider>
                                 {tipsLayout(hero?.extraInfo2)}
 
 
-                                <Divider contentPosition='left'>
-                                    敌方 {hero?.nameCN}
+                                <Divider contentPosition='left' className="front-color-dark">
+                                    <b>敌方 {hero?.nameCN}</b>
                                 </Divider>
                                 {tipsLayout(hero?.extraInfo1)}
                             </div>
