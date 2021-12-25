@@ -9,20 +9,13 @@ import { NavBar, TabBar } from './components/common/index'
 
 
 const App: React.FC = (props) => (
-  <div className="App" style={{
-    display: "flex",
-    justifyContent: "center"
-  }}>
+  <>
     {/* header */}
     <NavBar />
 
-    <div
-      className="App-Content"
-      style={{
-        paddingBottom: "60px",
-        paddingTop: "45px"
-      }}
-    >
+
+    {/* content */}
+    <div id='mian-content'>
       <Routes>
         <Route path="/" element={Heroes()} />
         <Route path="/heroes" element={Heroes()} />
@@ -36,7 +29,7 @@ const App: React.FC = (props) => (
 
     {/* footer navigation */}
     <TabBar />
-  </div>
+  </>
 );
 
 export default App;

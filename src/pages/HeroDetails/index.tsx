@@ -1,8 +1,11 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import { useLocation } from 'react-router'
 import { heroDetail } from '../../api/index'
-import { Toast, Divider, Image, List, Tag, Space, Grid, ImageViewer } from 'antd-mobile'
+import { Toast, Divider, Image, Tag, Space, Tabs, Badge } from 'antd-mobile'
 import { Loading } from '../../components/common/index'
+import DetailsSkills from './DetailsSkills'
+import DetailsTips from './DetailsTips'
+import DetailsSkins from './DetailsSkins'
 
 type skillsType = {
     name: any,
@@ -26,8 +29,6 @@ const HeroDetails = () => {
 
     const { state } = useLocation()
     const [dataSource, setDataSource] = useState<any>({})
-    const [viewerImage, setViewerImage] = useState("")
-    const [viewerShow, setViewerShow] = useState(false)
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -59,7 +60,17 @@ const HeroDetails = () => {
                 nameCN: title,
                 nickName: name,
                 description: shortBio,
-                type: roles,
+                type: roles.map((item: string) => {
+                    switch (item) {
+                        case "tank": return "坦克";
+                        case "mage": return "法师";
+                        case "assassin": return "刺客";
+                        case "fighter": return "战士";
+                        case "support": return "辅助";
+                        case "marksman": return "射手";
+                        default: return item;
+                    }
+                }),
                 extraInfo1: enemytips,
                 extraInfo2: allytips
             })
@@ -67,6 +78,7 @@ const HeroDetails = () => {
             return {}
         }
     }, [dataSource])
+
 
     // 技能
     const skills = useMemo(() => {
@@ -99,20 +111,6 @@ const HeroDetails = () => {
     }, [dataSource])
 
 
-    const tipsLayout = (array: []) => (
-        array?.map((item: string, index: number) => (
-            <p key={index}
-                style={{
-                    padding: "0 1rem 0",
-                    margin: 0,
-                    fontSize: "13px"
-                }}
-            >
-                {item}
-            </p>
-        ))
-    )
-
     return (
         <>
             {
@@ -120,14 +118,15 @@ const HeroDetails = () => {
                     ? <Loading />
                     : (
                         <>
-                            <Image src={skins[0]?.sourceImg} />
-
+                            {/* 1. top pic */}
+                            <Image src={skins[0]?.sourceImg} style={{ minWidth: "100%" }} />
+                            {/* 2. title */}
                             <Divider style={{ textAlign: "center" }}>
                                 <h2 style={{ margin: 0 }}>{hero?.nameCN}</h2>
                                 <h4 style={{ margin: 0 }}>{hero?.nickName}</h4>
                             </Divider>
 
-
+                            {/* 3. tags */}
                             <div className="tags" style={{ textAlign: "center" }}>
                                 <Space >
                                     {
@@ -138,94 +137,30 @@ const HeroDetails = () => {
                                 </Space>
                             </div>
 
-
+                            {/* 4. background story*/}
                             <div className="decription">
-                                <p style={{ textIndent: "26px" }}>
+                                <p style={{ textIndent: "26px", padding: "0 1rem" }}>
                                     {hero?.description}
                                 </p>
                             </div>
 
+                            {/* 5. tabs  */}
+                            <Tabs defaultActiveKey="skills">
+                                {/* tips */}
+                                <Tabs.Tab title='注意技巧' key='tips'>
+                                    <DetailsTips hero={hero} />
+                                </Tabs.Tab>
 
-                            <div className="skills">
-                                <Divider>
-                                    <h3 style={{ margin: 0 }}>技能介绍</h3>
-                                </Divider>
-                                <List>
-                                    {skills?.map((item: any, index: number) => (
-                                        <List.Item
-                                            key={index}
-                                            prefix={
-                                                <Image
-                                                    src={item.pic}
-                                                    style={{ borderRadius: 10 }}
-                                                    fit='cover'
-                                                    width={50}
-                                                    height={50}
-                                                />
-                                            }
-                                            description={
-                                                <p style={{ fontSize: "13px" }}>{item.description}</p>
-                                            }
-                                        >
-                                            <b className="front-color-dark">{item.name}</b>
-                                        </List.Item>
-                                    ))}
-                                </List>
-                            </div>
+                                {/* skills */}
+                                <Tabs.Tab title='技能介绍' key='skills'>
+                                    <DetailsSkills skills={skills} />
+                                </Tabs.Tab>
 
-
-                            <div className="tips">
-                                <Divider>
-                                    <h3 style={{ margin: 0 }}>注意技巧</h3>
-                                </Divider>
-
-                                <Divider contentPosition='left' className="front-color-dark">
-                                    <b>我方 {hero?.nameCN}</b>
-                                </Divider>
-                                {tipsLayout(hero?.extraInfo2)}
-
-
-                                <Divider contentPosition='left' className="front-color-dark">
-                                    <b>敌方 {hero?.nameCN}</b>
-                                </Divider>
-                                {tipsLayout(hero?.extraInfo1)}
-                            </div>
-
-
-                            <div className="skins">
-                                <Divider>
-                                    <h3 style={{ margin: 0 }}>皮肤展示</h3>
-                                </Divider>
-                                <Grid columns={3}>
-                                    {
-                                        skins?.map((item: any, index: number) => (
-                                            !item.mainImg
-                                                ? null
-                                                : (
-                                                    <Grid.Item key={index}>
-                                                        <Image
-                                                            src={item.loadingImg}
-                                                            style={{
-                                                                width: "100%",
-                                                                height: "100%",
-                                                            }}
-                                                            onClick={() => {
-                                                                setViewerImage(item.mainImg)
-                                                                setViewerShow(true)
-                                                            }}
-                                                        />
-                                                    </Grid.Item>
-                                                )
-
-                                        ))
-                                    }
-                                </Grid>
-                                <ImageViewer
-                                    image={viewerImage}
-                                    visible={viewerShow}
-                                    onClose={() => setViewerShow(false)}
-                                />
-                            </div>
+                                {/* skins */}
+                                <Tabs.Tab title={<Badge content={skins.length || 0}>皮肤展示</Badge>} key='skins'>
+                                    <DetailsSkins skins={skins} />
+                                </Tabs.Tab>
+                            </Tabs>
                         </ >
                     )
             }

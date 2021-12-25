@@ -22,6 +22,7 @@ export default function Cards(props: any) {
                 props.list.map((item: any) => (
                     <Grid.Item
                         key={item.id}
+                        style={{ minWidth: "75.5px" }}
                         onClick={() => goDetail(item.id)}
                     >
                         <Image src={item.pic} fit='fill'

@@ -13,3 +13,18 @@
   color: $active-font-dark !important;
   font-weight: 700;
 }
+
+.adm-tabs-tab-active {
+  color: $active-font-dark !important;
+}
+
+:root:root {
+  --adm-color-primary: teal !important;
+}
+
+.skills {
+  .adm-list-default {
+    border: 0 !important;
+    margin-top: -0.5rem !important;
+  }
+}

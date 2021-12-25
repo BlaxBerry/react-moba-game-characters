@@ -93,7 +93,6 @@ const Heroes = () => {
                 onChange={setHeroType}
                 style={{
                     position: "fixed",
-                    left: "5px",
                     height: "100%",
                     width: '60px'
                 }}
@@ -112,7 +111,7 @@ const Heroes = () => {
             </SideBar>
 
             {/* right content */}
-            <div style={{ paddingLeft: "65px" }}>
+            <div style={{ paddingLeft: "65px", minWidth: "100%" }}>
                 {
                     loading
                         ? (<Loading />)

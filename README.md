@@ -36,6 +36,8 @@ developing...
 ## Images
 
 ![](./public/images/heroes.png)
-![](./public/images/detail-info.png)
-![](./public/images/detail-skin.png)
+![](./public/images/detail-01.png)
+![](./public/images/detail-02.png)
+![](./public/images/detail-03.png)
+![](./public/images/detail-04.png)
 ![](./public/images/search.png)

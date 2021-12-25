@@ -2,8 +2,23 @@
 @import "./cover.scss";
 @import "./common.scss";
 
+$max-width: 375px;
+
 body {
-  color: $active-font-grey;
+  margin: 0 auto;
+  max-width: $max-width;
+  background-color: #eee;
 }
 
+#mian-content {
+  min-height: 100vh;
+  width: 100%;
+  padding: 50px 2px;
+  background-color: #fff;
+}
 
+.adm-nav-bar,
+.adm-tab-bar {
+  max-width: $max-width;
+  z-index: 999;
+}
