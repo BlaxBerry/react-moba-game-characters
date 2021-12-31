@@ -45,6 +45,10 @@
       "last 1 safari version"
     ]
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://blaxberry.github.io/react-moba-game-characters.git"
+  },
   "proxy": "https://api.shop.eduwork.cn",
-  "homepage": "./"
+  "homepage": "https://blaxberry.github.io/react-moba-game-characters/"
 }
